@@ -93,7 +93,7 @@
   <div class="result-card" id="result">Loading your future... 🔮</div>
 
   <div class="button-group">
-    <button onclick="generateResult()">🔄 දැන් නැවත උත්සාහ කරන්න!</button>
+    <button onclick="handleTryAgainClick()">🔄 දැන් නැවත උත්සාහ කරන්න!</button>
     <button onclick="handleShareClick()">📤 මිතුරන්ට Share කරන්න</button>
   </div>
 
@@ -155,7 +155,23 @@
       }
     }
 
-    window.onload = generateResult;
+    
+let tryAgainClicked = false;
+
+function handleTryAgainClick() {
+  const messageEl = document.getElementById("message");
+  if (!tryAgainClicked) {
+    tryAgainClicked = true;
+    messageEl.innerText = "📢 දැන් ප්‍රතිඵලයක් බලන්න!";
+    window.open("https://www.profitableratecpm.com/essbieqdn?key=fd3a2a8d642b3ca8a96276905d569b26", "_blank");
+  } else {
+    generateResult();
+    messageEl.innerText = "🎉 ඔබට නව ප්‍රතිඵලයක් ලැබුණා!";
+  }
+}
+
+window.onload = generateResult;
+
   </script>
 </body>
 </html>
