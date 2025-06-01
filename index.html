@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AHA Fun Quiz</title>
+  <title>AHA - ඔබේ ඉරණම දැනගන්න!</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Adsterra Ad Code Placeholder -->
-  <script type='text/javascript'>
-    // Adsterra ad script goes here
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>ඔබේ මුහුන දැක ඔබේ ඉරණම ප්‍රකාශනය...</h1>
-    <p>ඉදිරියටම යන්න, හෝදම දේ තවම පෑමින නැත.</p>
+  <div class="wrapper">
+    <header>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Facebook_logo_2023.svg" alt="FB" class="fb-logo">
+      <h1>ඔබේ මුහුන දැක ඔබේ ඉරණම ප්‍රකාශනය...</h1>
+      <p>ඉදිරියටම යන්න, හෝදම දේ තවම පෑමින නැත.</p>
+    </header>
 
-    <div class="card">
-      <p id="result">...</p>
-    </div>
+    <main>
+      <div class="result-card" id="result">...</div>
+      <button class="share-btn" onclick="shareContent()">📤 මිතුරන්ට Share කරන්න</button>
+    </main>
 
-    <button onclick="shareContent()">Share</button>
+    <footer>
+      <small>© 2025 AHA Quizzes</small>
+    </footer>
   </div>
 
   <script src="script.js"></script>

@@ -1,26 +1,48 @@
 body {
-  font-family: sans-serif;
-  background: white;
-  text-align: center;
+  font-family: 'Baloo 2', cursive;
+  background: linear-gradient(to bottom, #ffffff, #e0f7fa);
   margin: 0;
+  padding: 0;
+}
+.wrapper {
+  text-align: center;
   padding: 20px;
 }
-.container {
-  max-width: 400px;
-  margin: auto;
-}
-.card {
-  background: #a8e91e;
-  border-radius: 10px;
-  padding: 60px 20px;
-  margin: 20px 0;
-  font-size: 1.4em;
-}
-button {
-  padding: 10px 30px;
-  font-size: 1em;
-  background: gray;
+header {
+  background: #00c853;
   color: white;
+  padding: 20px;
+  border-radius: 0 0 30px 30px;
+}
+.fb-logo {
+  width: 40px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.result-card {
+  margin: 30px auto;
+  background: #c6ff00;
+  border-radius: 16px;
+  padding: 50px 20px;
+  font-size: 1.8em;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.share-btn {
+  background: #00c853;
+  color: white;
+  font-size: 1.2em;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.share-btn:hover {
+  background: #009624;
+}
+footer {
+  margin-top: 50px;
+  color: gray;
 }
