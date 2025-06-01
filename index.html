@@ -1,31 +1,160 @@
+
 <!DOCTYPE html>
 <html lang="si">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AHA - ඔබේ ඉරණම දැනගන්න!</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta property="og:title" content="ඔබේ ඉරණම දැනගන්න!">
+  <meta property="og:description" content="ඔබට අද කුමක් සිදුවේදැයි දැන්ම බලන්න!">
+  <meta property="og:image" content="https://your-site.com/preview.jpg">
+  <meta property="og:url" content="https://your-site.com">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to bottom, #ffffff, #e0f7fa);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    header {
+      background: #00c853;
+      color: white;
+      padding: 20px;
+      width: 100%;
+      border-radius: 0 0 30px 30px;
+      position: relative;
+    }
+    .fb-logo {
+      width: 40px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .result-card {
+      background: #c6ff00;
+      border-radius: 16px;
+      padding: 40px 20px;
+      font-size: 1.8em;
+      max-width: 90%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin: 30px auto;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .button-group button {
+      background: #00c853;
+      color: white;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      padding: 15px 30px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .button-group button:hover {
+      background: #009624;
+    }
+    .message {
+      margin-top: 10px;
+      font-size: 1em;
+      color: #333;
+    }
+    footer {
+      margin-top: 50px;
+      color: gray;
+    }
+    .counter-text {
+      font-size: 0.9em;
+      margin-top: 10px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-  <div class="wrapper">
-    <header>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Facebook_logo_2023.svg" alt="FB" class="fb-logo">
-      <h1>ඔබේ මුහුන දැක ඔබේ ඉරණම ප්‍රකාශනය...</h1>
-      <p>ඉදිරියටම යන්න, හෝදම දේ තවම පෑමින නැත.</p>
-    </header>
 
-    <main>
-      <div class="result-card" id="result">...</div>
-      <button class="share-btn" onclick="shareContent()">📤 මිතුරන්ට Share කරන්න</button>
-    </main>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Facebook_logo_2023.svg" alt="FB" class="fb-logo">
+    <h1>ඔබේ මුහුන දැක ඔබේ ඉරණම ප්‍රකාශනය...</h1>
+    <p>ඉදිරියටම යන්න, හෝදම දේ තවම පෑමින නැත.</p>
+  </header>
 
-    <footer>
-      <small>© 2025 AHA Quizzes</small>
-    </footer>
+  <div class="result-card" id="result">Loading your future... 🔮</div>
+
+  <div class="button-group">
+    <button onclick="handleShareClick()">📤 මිතුරන්ට Share කරන්න</button>
   </div>
 
-  <script src="script.js"></script>
+  <p class="message" id="message"></p>
+  <p class="counter-text">🔥 1,250+ ක් අදම උත්සාහ කළා!</p>
+
+  <footer>
+    <small>© 2025 AHA Quizzes</small>
+  </footer>
+
+  <script>
+    const results = [
+      "ඔබට ඉතා හොඳ දවසක් වේයි! 🌞",
+      "අද ඔබගේ වාසනාවන්ත දවසක්! 🍀",
+      "මිතුරන්ගෙන් ආදරය ලැබේවි! ❤️",
+      "ඔබගේ සිහින ඉටු වේයි! ✨",
+      "අද ඔබව කවුරුන් හෝ ආදරයෙන් යුතුව බලාපොරොත්තු වෙයි! 💌",
+      "ඉස්සරහට ඔබට විශේෂ ආරංචියක් ලැබෙනු ඇත 📬",
+      "අද ඔබට අලුත් මිතුරෙක් හමු වීමට හැකියාවක් ඇත 🤝",
+      "ඔබගේ ආයුෂ දිගුවක් වේවි 🍎",
+      "ඔබගේ උත්සාහය අසමත් නොවේ 💪",
+      "ආරක්ෂාකාරීව ඉන්න — කුඩා අවදානමක් දක්නට තිබේ ⚠️",
+      "ඔබට වැඩි මුදලක් ලැබෙන දිනයක්! 💰",
+      "ඔබව ආදරයෙන් හිතන කෙනෙක් ඔබ ගැන සිතුවිලි කරනවා 🧠❤️",
+      "අද ඔබගේ සිනාසෙන්න තවත් හේතුවක් ලැබේවි 😄",
+      "ඔබට අලුත් ව්‍යාපාරික අදහසක් සිතේ ආවේනික වේවි 💡",
+      "ආරම්භයක් වුවද, ජයග්‍රහණය ඔබේයි! 🏁",
+      "සෞඛ්‍යය සඳහා අද සුවිශේෂී දිනයක්! 🥗"
+    ];
+
+    let hasSharedOnce = false;
+    let resetTimer;
+
+    function generateResult() {
+      const resultEl = document.getElementById("result");
+      const randomResult = results[Math.floor(Math.random() * results.length)];
+      resultEl.innerText = randomResult;
+
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      const audio = new Audio("https://www.soundjay.com/button/sounds/button-3.mp3");
+      audio.play();
+    }
+
+    function handleShareClick() {
+      const messageEl = document.getElementById("message");
+
+      if (!hasSharedOnce) {
+        hasSharedOnce = true;
+        messageEl.innerText = "🔄 දැන් නැවත උත්සාහ කරන්න!";
+        window.open("https://www.profitableratecpm.com/essbieqdn?key=fd3a2a8d642b3ca8a96276905d569b26", "_blank");
+
+        resetTimer = setTimeout(() => {
+          hasSharedOnce = false;
+          messageEl.innerText = "♻️ ඔබ නැවත බෙදාගත හැක!";
+        }, 60000);
+      } else {
+        generateResult();
+        messageEl.innerText = "🎉 ඔබට නව ප්‍රතිඵලයක් ලැබුණා!";
+      }
+    }
+
+    window.onload = generateResult;
+  </script>
 </body>
 </html>
